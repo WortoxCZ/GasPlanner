@@ -20,9 +20,21 @@
             }
         ],
         [
+            "@semantic-release/exec",
+            {
+                "prepareCmd": "npm pkg set version=${nextRelease.version} --prefix projects/scuba-physics && sed -i 's/\"id\": \".*\"/\"id\": \"${nextRelease.version}\"/' projects/planner/src/manifest.webmanifest"
+            }
+        ],
+        [
             "@semantic-release/git",
             {
-                "assets": ["package.json", "package-lock.json", "CHANGELOG.md"],
+                "assets": [
+                    "package.json",
+                    "package-lock.json",
+                    "CHANGELOG.md",
+                    "projects/scuba-physics/package.json",
+                    "projects/planner/src/manifest.webmanifest"
+                ],
                 "message": "chore(release): ${nextRelease.version}\n\n${nextRelease.notes}"
             }
         ],

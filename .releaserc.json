@@ -22,7 +22,7 @@
         [
             "@semantic-release/exec",
             {
-                "prepareCmd": "npm pkg set version=${nextRelease.version} --prefix projects/scuba-physics && sed -i 's/\"id\": \".*\"/\"id\": \"${nextRelease.version}\"/' projects/planner/src/manifest.webmanifest"
+                "prepareCmd": "pwsh ./build/bump-version.ps1 -Version ${nextRelease.version}"
             }
         ],
         [

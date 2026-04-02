@@ -1,5 +1,5 @@
 {
-    "branches": ["master"],
+    "branches": ["master", {"name": "rollback-test", "prerelease": "rc"}],
     "plugins": [
         ["@semantic-release/commit-analyzer", {
             "releaseRules": [

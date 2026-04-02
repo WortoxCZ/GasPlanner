@@ -41,7 +41,7 @@ jobs:
     name: E2E Tests
     runs-on: ubuntu-latest
     needs: test
-    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/rollback-test'))
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
@@ -74,7 +74,7 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     needs: [test, e2e]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/rollback-test')
     permissions:
       contents: write
       issues: write
@@ -145,3 +145,53 @@ jobs:
       - name: Rollback on failure
         if: failure()
         run: pwsh ./build/rollback-deploy.ps1 -CommitSha ${{ steps.pre-deploy.outputs.sha }}
+
+  # ─── Temporary: Rollback test ───────────────────────────────
+  deploy-test:
+    name: Deploy Test (rollback dry-run)
+    runs-on: ubuntu-latest
+    needs: [test, e2e, release]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/rollback-test'
+    env:
+      SITE_URL: http://localhost:4200
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: rollback-test
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci --legacy-peer-deps
+
+      - name: Read expected version
+        id: version
+        run: |
+          echo "value=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+          echo "Expecting version: $(node -p "require('./package.json').version")"
+
+      - name: Build and serve locally
+        run: |
+          pwsh ./build/install-lib.ps1
+          npm run build
+          npx serve dist/planner -l 4200 --single --no-clipboard &
+          sleep 3
+
+      - name: Wait for deployment to go live
+        run: pwsh ./build/wait-for-deploy.ps1 -ExpectedVersion ${{ steps.version.outputs.value }} -SiteUrl ${{ env.SITE_URL }} -TimeoutSeconds 30 -IntervalSeconds 3
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium
+
+      - name: Run production smoke test
+        run: npx playwright test --project=chromium
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ env.SITE_URL }}
+
+      - name: Simulate rollback on failure
+        if: failure()
+        run: echo "ROLLBACK TRIGGERED — would run rollback-deploy.ps1 in production"

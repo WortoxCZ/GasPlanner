@@ -1,3 +1,5 @@
+## [0.1.38-rc.1](https://github.com/WortoxCZ/GasPlanner/compare/v0.1.37...v0.1.38-rc.1) (2026-04-02)
+
 ## [0.1.37](https://github.com/WortoxCZ/GasPlanner/compare/v0.1.36...v0.1.37) (2026-03-30)
 
 

@@ -32,7 +32,7 @@ module.exports = function (config) {
           'verbose',
         { type: 'html' },
         { type: 'text-summary' },
-        { type: 'lcovonly', file: 'lcov.info' }
+        { type: 'cobertura', file: 'cobertura.xml' }
       ]
     },
     junitReporter: {

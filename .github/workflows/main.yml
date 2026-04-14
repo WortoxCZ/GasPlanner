@@ -38,9 +38,17 @@ jobs:
           path: coverage/
           retention-days: 14
 
-      - name: Generate coverage summary
+      - name: Coverage summary
         if: always()
-        run: pwsh ./build/coverage-summary.ps1
+        uses: irongut/CodeCoverageSummary@v1.3.0
+        with:
+          filename: coverage/scuba-physics/cobertura.xml,coverage/planner/cobertura.xml
+          format: markdown
+          output: both
+
+      - name: Publish coverage to summary
+        if: always()
+        run: cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY 2>/dev/null || true
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2

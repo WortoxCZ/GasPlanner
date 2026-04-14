@@ -30,7 +30,7 @@ module.exports = function (config) {
       reporters: [
         { type: 'html' },
         { type: 'text-summary' },
-        { type: 'lcovonly', file: 'lcov.info' }
+        { type: 'cobertura', file: 'cobertura.xml' }
       ]
     },
     junitReporter: {

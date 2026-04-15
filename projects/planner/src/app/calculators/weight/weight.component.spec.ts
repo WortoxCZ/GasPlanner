@@ -14,10 +14,10 @@ import { ViewSwitchService } from '../../shared/viewSwitchService';
 import { ReloadDispatcher } from '../../shared/reloadDispatcher';
 import { DiveSchedules } from '../../shared/dive.schedules';
 import { ApplicationSettingsService } from '../../shared/ApplicationSettings';
-import { By } from "@angular/platform-browser";
-import { RouterTestingModule } from "@angular/router/testing";
-import { ReactiveFormsModule } from "@angular/forms";
-import { MdbModalService } from "mdb-angular-ui-kit/modal";
+import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 describe('WeightCalcComponent', () => {
     let component: WeightCalcComponent;
@@ -25,34 +25,52 @@ describe('WeightCalcComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-    providers: [
-        UnitConversion, ValidatorGroups, InputControls,
-        DecimalPipe, SubViewStorage, ViewStates,
-        PreferencesStore, PlannerService, WorkersFactoryCommon,
-        Preferences, ViewSwitchService,
-        ReloadDispatcher, DiveSchedules,
-        ApplicationSettingsService,
-        MdbModalService
-    ],
-    imports: [
-        RouterTestingModule.withRoutes([]),
-        ReactiveFormsModule,
-        WeightCalcComponent
-    ]
-}).compileComponents();
+            providers: [
+                UnitConversion, ValidatorGroups, InputControls,
+                DecimalPipe, SubViewStorage, ViewStates,
+                PreferencesStore, PlannerService, WorkersFactoryCommon,
+                Preferences, ViewSwitchService,
+                ReloadDispatcher, DiveSchedules,
+                ApplicationSettingsService,
+                MdbModalService
+            ],
+            imports: [
+                RouterTestingModule.withRoutes([]),
+                ReactiveFormsModule,
+                WeightCalcComponent
+            ]
+        }).compileComponents();
     });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(WeightCalcComponent);
         component = fixture.componentInstance;
+        component.tank.tank.size = 15;
         fixture.detectChanges();
     });
 
-    it('Calculates weight', () => {
+    const setConsumed = (newConsumed: string): void => {
         const consumedInput = fixture.debugElement.query(By.css('#consumed'))?.nativeElement as HTMLInputElement;
-        consumedInput.value = '150';
+        consumedInput.value = newConsumed;
         consumedInput.dispatchEvent(new Event('input'));
+    };
+
+    it('Calculates weight for 150 bars consumed', () => {
+        setConsumed('150');
         expect(component.tank.startPressure).toBeCloseTo(180, 3);
         expect(component.weight).toBeCloseTo(2.7, 3);
+    });
+
+    it('Calculates weight for 0 bars consumed', () => {
+        setConsumed('0');
+        expect(component.tank.startPressure).toBeCloseTo(30, 3);
+        expect(component.weight).toBeCloseTo(0, 3);
+    });
+
+    it('Uses correct consumed when updated multiple times', () => {
+        setConsumed('100');
+        setConsumed('200');
+        expect(component.tank.startPressure).toBeCloseTo(230, 3);
+        expect(component.weight).toBeCloseTo(3.5, 3);
     });
 });

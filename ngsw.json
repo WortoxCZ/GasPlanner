@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1778535954259,
+  "timestamp": 1778536424722,
   "index": "/GasPlanner/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "/GasPlanner/favicon.ico",
         "/GasPlanner/index.html",
-        "/GasPlanner/main-ZUUWOGAA.js",
+        "/GasPlanner/main-FWZZYTVR.js",
         "/GasPlanner/manifest.webmanifest",
         "/GasPlanner/polyfills-P6A55ORB.js",
         "/GasPlanner/styles-TQTTHOVD.css",
@@ -116,7 +116,7 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/GasPlanner/assets/doc/CHANGELOG.md": "8c3ff6f27e28de0a1c2d68c8e49c470ad8a7c7b3",
+    "/GasPlanner/assets/doc/CHANGELOG.md": "6f5e8a29293ad2813d088a401bfdb78a5e4f6e76",
     "/GasPlanner/assets/doc/altitude.md": "a0f80c9a7b3b8a6ab632623a446fe96285a90c76",
     "/GasPlanner/assets/doc/application.md": "5d849bdd5fe89419bff5e6ad3a28b5c8d5a73cb2",
     "/GasPlanner/assets/doc/consumed.md": "1a750976947ea6576cc3236ef412d6ba21ecc4a3",
@@ -185,9 +185,9 @@
     "/GasPlanner/assets/splash/apple_splash_640.png": "aa065aaea122cf10e2b3da73b58a3a61a8c8c694",
     "/GasPlanner/assets/splash/apple_splash_750.png": "d31ed0f6f9ce5cab5294b6789739d2179b1acb08",
     "/GasPlanner/favicon.ico": "010b086b99a2ed272b98e651e1dfaa5011b3ac6f",
-    "/GasPlanner/index.html": "cef221df9f97b9ff52a60b2567f04278efbada8c",
-    "/GasPlanner/main-ZUUWOGAA.js": "07ba14cd413cb9bb3e69fd4fa443f08acde55e6d",
-    "/GasPlanner/manifest.webmanifest": "a1288123dacda6c3388b83d5023443c5e3659316",
+    "/GasPlanner/index.html": "4643fe3437cd3a30d66525a6ccd490b090b758f7",
+    "/GasPlanner/main-FWZZYTVR.js": "9c8fee29c05ce62ee00363decd44eb3cdae45bdf",
+    "/GasPlanner/manifest.webmanifest": "b5f6af7bed9e16d0187c74c95561609f5530bcec",
     "/GasPlanner/polyfills-P6A55ORB.js": "1a0a1ccbe2cadbc403b71643bd99b21cdaba0375",
     "/GasPlanner/styles-TQTTHOVD.css": "26c8e2a7cc86614aa393c394eea05c5fc15514d9",
     "/GasPlanner/worker-CRT6SBB2.js": "f768b20c6353caac5b83eee3136a10a644475a3b",

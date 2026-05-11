@@ -4,7 +4,11 @@ $ErrorActionPreference = 'Stop'
 & "$PSScriptRoot/install-lib.ps1"
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-npm run build
+if ($env:BASE_HREF) {
+    npx ng build --configuration production planner --base-href=$env:BASE_HREF
+} else {
+    npm run build
+}
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
 # Configure git for CI

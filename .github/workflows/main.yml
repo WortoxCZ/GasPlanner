@@ -123,7 +123,7 @@ jobs:
     permissions:
       contents: write
     env:
-      SITE_URL: https://dugong.online
+      SITE_URL: https://wortoxcz.github.io/GasPlanner
     steps:
       - uses: actions/checkout@v6
         with:
@@ -150,6 +150,7 @@ jobs:
         run: pwsh ./build/deploy.ps1
         env:
           DEPLOY_VERSION: ${{ github.sha }}
+          BASE_HREF: /GasPlanner/
 
       - name: Wait for deployment to go live
         run: pwsh ./build/wait-for-deploy.ps1 -ExpectedVersion ${{ steps.version.outputs.value }} -SiteUrl ${{ env.SITE_URL }}

@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/WortoxCZ/GasPlanner/compare/v1.0.3...v1.0.4) (2026-05-11)
+
+
+### Bug Fixes
+
+* bench T3 4 ([8c552bb](https://github.com/WortoxCZ/GasPlanner/commit/8c552bbc5bb6135620b817bb503ff640840e16fe)), closes [#4](https://github.com/WortoxCZ/GasPlanner/issues/4)
+
 ## [1.0.3](https://github.com/WortoxCZ/GasPlanner/compare/v1.0.2...v1.0.3) (2026-05-11)
 
 
